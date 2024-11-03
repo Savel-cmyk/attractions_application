@@ -47,20 +47,4 @@ public class Attraction {
     )
     @ToString.Exclude
     private List<Assistance> assistance;
-
-    public void addAssistance(Assistance assistance) {
-        this.assistance.add(assistance);
-        assistance.getAttractions().add(this);
-    }
-
-    public void removeAssistance(long assistanceId) {
-        Assistance _assistance = this.assistance.stream()
-                .filter(t -> t.getId() == assistanceId)
-                .findFirst()
-                .orElse(null);
-        if (_assistance != null) {
-            this.assistance.remove(_assistance);
-            _assistance.getAttractions().remove(this);
-        }
-    }
 }
