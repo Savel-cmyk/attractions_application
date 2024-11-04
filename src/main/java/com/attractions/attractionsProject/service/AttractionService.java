@@ -78,13 +78,7 @@ public class AttractionService {
     ) {
         return localityRepository.findById(localityId)
                 .map(locality -> {
-                    Attraction attraction;
-                    try {
-                        attraction = attractionMapper.toAttraction(attractionDto);
-                    } catch (ParseException e) {
-                        throw new InvalidDateFormatException("creationDate", "Given date format does not correspond " +
-                                "to what was expected");
-                    }
+                    Attraction attraction = attractionMapper.toAttraction(attractionDto);
                     attraction.setLocality(locality);
                     attractionRepository.save(attraction);
                     return attractionMapper.toAttractionResponseDto(attraction);

@@ -24,10 +24,7 @@ public class LocalityController {
 
         LocalityDto localityResponseDto = localityService.createLocality(localityDto);
 
-        if (localityResponseDto == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(localityDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(localityResponseDto, HttpStatus.CREATED);
     }
 
 }

@@ -3,6 +3,7 @@ package com.attractions.attractionsProject.mappers;
 import com.attractions.attractionsProject.dtos.AttractionDto;
 import com.attractions.attractionsProject.dtos.AttractionResponseDto;
 import com.attractions.attractionsProject.dtos.AttractionShortDescriptionDto;
+import com.attractions.attractionsProject.exception.InvalidDateFormatException;
 import com.attractions.attractionsProject.model.Attraction;
 import com.attractions.attractionsProject.model.AttractionType;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,19 @@ public class AttractionMapper {
         this.localityMapper = localityMapper;
     }
 
-    public Attraction toAttraction(AttractionDto attractionDto) throws ParseException {
+    public Attraction toAttraction(AttractionDto attractionDto) {
 
         Attraction attraction = new Attraction();
         attraction.setName(attractionDto.name());
 
         SimpleDateFormat df = new SimpleDateFormat("yyyyy.MM.dd");
-        java.util.Date utilDate = df.parse(attractionDto.replaceDateEraWithWithMinusIfBC());
+        java.util.Date utilDate;
+        try {
+            utilDate = df.parse(attractionDto.replaceDateEraWithMinusIfBC());
+        } catch (ParseException ex) {
+            throw new InvalidDateFormatException("creationDate", "Given date format does not correspond " +
+                    "to what was expected");
+        }
         java.sql.Date date = new java.sql.Date(utilDate.getTime());
         attraction.setCreationDate(date);
 

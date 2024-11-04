@@ -42,7 +42,7 @@ public class ValidDateFormatValidator implements ConstraintValidator<ValidDateFo
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext
                     .buildConstraintViolationWithTemplate("Given date isn't in acceptable range. Date must be " +
-                            "greater than 4714.01.01 BC and lesser than current date.")
+                            "greater than 4714.01.01 BC and lesser than tomorrow's date.")
                     .addConstraintViolation();
 
             return false;
@@ -81,9 +81,17 @@ public class ValidDateFormatValidator implements ConstraintValidator<ValidDateFo
 
             return true;
 
-        } else if ((date[0] > year) && (date[1] > month) && (date[2] > day)) {
+        } else if (date[0] > year) {
 
             return true;
+
+        } else if (date[0] == year) {
+
+            if (date[1] > month) {
+
+                return true;
+
+            } else return (date[1] == month) && (date[2] > day);
         }
         return false;
     }

@@ -8,8 +8,6 @@ import jakarta.validation.constraints.Pattern;
 public record AttractionDto(
         @NotBlank(message = "The attraction that you're trying to add considered to have a name.")
         String name,
-        /*@PastOrPresent(message = "You cannot add an attraction that hasn't been built yet. Or at least you can left " +
-                "this field blank.")*/
         @ValidDateFormat
         String creationDate,
         @NotNull
@@ -21,7 +19,7 @@ public record AttractionDto(
         String attractionType
 ) {
 
-        public String replaceDateEraWithWithMinusIfBC() {
+        public String replaceDateEraWithMinusIfBC() {
 
                 if (creationDate.startsWith("BC", 11)) {
 
