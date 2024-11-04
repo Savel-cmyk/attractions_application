@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class LocalityServiceTest {
+class LocalityServiceUnitTests {
 
     @InjectMocks
     private LocalityService localityService;
